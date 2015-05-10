@@ -12,7 +12,7 @@ public class BulletManager : MonoBehaviour {
     }
 
     void Update() {
-        Debug.Log(bulletCounter);
+        //Debug.Log(bulletCounter);
     }
 
 

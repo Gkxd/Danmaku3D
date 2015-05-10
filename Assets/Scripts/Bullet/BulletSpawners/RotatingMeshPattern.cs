@@ -13,7 +13,7 @@ public class RotatingMeshPattern : _BulletSpawner {
     public override void spawnBullets() {
         foreach (Vector3 vertex in mesh.vertices) {
             Vector3 direction = Quaternion.AngleAxis(angle, rotationAxis) * vertex;
-            StraightLineBullet bulletBehavior = new StraightLineBullet(bulletSpeed, direction);
+            StraightLineBullet bulletBehavior = new StraightLineBullet(transform.position, direction, bulletSpeed);
             
             spawnBullet(bulletPrefab, bulletBehavior, appearence, bulletLifetime);
         }

@@ -16,7 +16,7 @@ public class RotatingRing : _BulletSpawner {
     public override void spawnBullets() {
         for (int i = 0; i < amount; i++) {
             Vector3 direction = Quaternion.AngleAxis(bulletSpread * i / amount + angleOffset, orthogonalAxis) * Vector3.Cross(orthogonalAxis, ringRotationAxis);
-            StraightLineBullet bulletBehavior = new StraightLineBullet(bulletSpeed, direction);
+            StraightLineBullet bulletBehavior = new StraightLineBullet(transform.position, direction, bulletSpeed);
 
             spawnBullet(bulletPrefab, bulletBehavior, appearence, bulletLifetime);
         }

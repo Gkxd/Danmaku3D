@@ -2,17 +2,20 @@
 using System.Collections;
 
 
-public class StraightLineBullet : _BulletBehavior {
-
+public class StraightLineBullet : _DirectionalBulletBehavior {
     private float velocity;
-    private Vector3 direction;
 
-    public StraightLineBullet(float v, Vector3 d) {
+    public StraightLineBullet(Vector3 p, Vector3 d, float v) : base(p, d) {
         velocity = v;
-        direction = d;
     }
 
     public override void initBullet(BulletUpdate b) {
+        base.initBullet(b);
         b.getRigidBody().velocity = velocity * direction;
+
+        Quaternion rotation = new Quaternion();
+        rotation.SetFromToRotation(Vector3.forward, direction);
+
+        b.getRigidBody().rotation = rotation;
     }
 }
