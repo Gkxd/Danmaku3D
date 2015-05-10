@@ -5,8 +5,11 @@ public abstract class _BulletSpawner : MonoBehaviour {
     
     public GameObject bulletPrefab;
     public BulletAppearence appearence;
-
+    
+    public float bulletSpeed;
+    public float bulletLifetime = 10;
     public float delaySeconds;
+
 
     void Start() {
         init(delaySeconds);
@@ -65,7 +68,8 @@ public abstract class _BulletSpawner : MonoBehaviour {
     public static void spawnBullet(GameObject bulletPrefab,
                                    _BulletBehavior behavior,
                                    BulletAppearence appearence,
-                                   float lifeTime) {
+                                   float lifeTime,
+                                   float delaySeconds = 0) {
         
         GameObject bullet = GameObject.Instantiate(bulletPrefab);
         
@@ -73,6 +77,6 @@ public abstract class _BulletSpawner : MonoBehaviour {
         bulletVisual.appearence = appearence;
 
         BulletUpdate bulletUpdate = bullet.AddComponent<BulletUpdate>();
-        bulletUpdate.init(behavior, lifeTime);
+        bulletUpdate.init(behavior, lifeTime, delaySeconds);
     }
 }

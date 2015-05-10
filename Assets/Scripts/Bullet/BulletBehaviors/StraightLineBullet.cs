@@ -12,7 +12,7 @@ public class StraightLineBullet : _BulletBehavior {
         direction = d;
     }
 
-    public override void moveBullet(Rigidbody r, float deltaTime) {
-        r.velocity = velocity * direction;
+    public override void initBullet(BulletUpdate b) {
+        b.getRigidBody().velocity = velocity * direction;
     }
 }

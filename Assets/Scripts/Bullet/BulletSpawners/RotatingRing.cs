@@ -4,9 +4,7 @@ using System.Collections;
 public class RotatingRing : _BulletSpawner {
 
     public int amount;
-    public float bulletSpeed = 10;
     public float bulletSpread = 360;
-    public float bulletLifetime = 10;
 
     public Vector3 ringRotationAxis;
     public float ringRotationAmount;
