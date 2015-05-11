@@ -2,27 +2,27 @@
 using System.Collections;
 
 
-public class StraightLineBullet : _DirectionalBulletBehavior {
+public class GravityBullet : _DirectionalBulletBehavior {
     private float velocity;
     private float acceleration;
+    private Vector3 gravityDirection;
 
-    public StraightLineBullet(Vector3 p, Vector3 d, float v, float a = 0) : base(p, d) {
+    public GravityBullet(Vector3 p, Vector3 d, float v, float a, Vector3 g) : base(p, d) {
         velocity = v;
         acceleration = a;
+        gravityDirection = g;
     }
 
     public override void initBullet(BulletUpdate b) {
         base.initBullet(b);
         b.getRigidBody().velocity = velocity * direction;
-
-        b.getRigidBody().AddForce(acceleration * direction);
         
         reorientBullet(b, direction);
     }
-
+    
     public override void moveBullet(BulletUpdate b, float deltaTime) {
-        b.getRigidBody().velocity += acceleration * direction * deltaTime;
+        b.getRigidBody().velocity += acceleration * gravityDirection * deltaTime;
         
-        reorientBullet(b, direction);
+        reorientBullet(b, b.getRigidBody().velocity);
     }
 }

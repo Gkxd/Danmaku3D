@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RotatingRing : _BulletSpawner {
+public class RotatingRing_Gravity: _BulletSpawner {
+    
+    public float bulletSpeed;
+    public float bulletAcceleration;
+    public Vector3 gravityDirection;
 
     public int amount;
-    public float bulletSpread = 360;
+    public float spread = 360;
 
     public Vector3 ringRotationAxis;
     public float ringRotationAmount;
@@ -15,8 +19,8 @@ public class RotatingRing : _BulletSpawner {
 
     public override void spawnBullets() {
         for (int i = 0; i < amount; i++) {
-            Vector3 direction = Quaternion.AngleAxis(bulletSpread * i / amount + angleOffset, orthogonalAxis) * Vector3.Cross(orthogonalAxis, ringRotationAxis);
-            StraightLineBullet bulletBehavior = new StraightLineBullet(transform.position, direction, bulletSpeed);
+            Vector3 direction = Quaternion.AngleAxis(spread * i / amount + angleOffset, orthogonalAxis) * Vector3.Cross(orthogonalAxis, ringRotationAxis);
+            GravityBullet bulletBehavior = new GravityBullet(transform.position, direction, bulletSpeed, bulletAcceleration, gravityDirection);
 
             spawnBullet(bulletPrefab, bulletBehavior, appearence, bulletLifetime);
         }

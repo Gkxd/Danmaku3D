@@ -5,8 +5,7 @@ public abstract class _BulletSpawner : MonoBehaviour {
     
     public GameObject bulletPrefab;
     public BulletAppearence appearence;
-    
-    public float bulletSpeed;
+
     public float bulletLifetime = 10;
     public float delaySeconds;
 

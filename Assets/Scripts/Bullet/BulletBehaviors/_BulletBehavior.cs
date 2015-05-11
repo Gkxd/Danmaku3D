@@ -19,4 +19,11 @@ public abstract class _BulletBehavior {
     public void setInitialPosition(Vector3 p) {
         initialPosition = p;
     }
+
+    protected void reorientBullet(BulletUpdate b, Vector3 direction) {
+        Quaternion rotation = new Quaternion();
+        rotation.SetFromToRotation(Vector3.forward, direction);
+        
+        b.getRigidBody().rotation = rotation;
+    }
 }
