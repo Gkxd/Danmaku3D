@@ -1,28 +1,19 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
+public class StraightLineBullet : _BulletUpdate {
+    public float velocity;
+    public float acceleration;
 
-public class StraightLineBullet : _DirectionalBulletBehavior {
-    private float velocity;
-    private float acceleration;
-
-    public StraightLineBullet(Vector3 p, Vector3 d, float v, float a = 0) : base(p, d) {
-        velocity = v;
-        acceleration = a;
+    protected override void initBullet() {
+        rigidbody.velocity = velocity * direction;
+        
+        reorientBullet(direction);
     }
 
-    public override void initBullet(BulletUpdate b) {
-        base.initBullet(b);
-        b.getRigidBody().velocity = velocity * direction;
-
-        b.getRigidBody().AddForce(acceleration * direction);
+    protected override void moveBullet() {
+        rigidbody.velocity += acceleration * direction * Time.deltaTime;
         
-        reorientBullet(b, direction);
-    }
-
-    public override void moveBullet(BulletUpdate b, float deltaTime) {
-        b.getRigidBody().velocity += acceleration * direction * deltaTime;
-        
-        reorientBullet(b, direction);
+        reorientBullet(direction);
     }
 }

@@ -48,12 +48,12 @@ public class BulletVisual : MonoBehaviour {
                 ShaderManager.setMaterialColorOpaque(material, appearence.color);
                 ShaderManager.setBlendMode(material, Blending.Add);
 
-                material = transform.Find("Wing 1/Visual").gameObject.GetComponent<Renderer>().material;
+                material = visual.transform.Find("Wing 1/Visual").gameObject.GetComponent<Renderer>().material;
 
                 ShaderManager.setMaterialColorOpaque(material, appearence.color);
                 ShaderManager.setBlendMode(material, Blending.Add);
                 
-                material = transform.Find("Wing 2/Visual").gameObject.GetComponent<Renderer>().material;
+                material = visual.transform.Find("Wing 2/Visual").gameObject.GetComponent<Renderer>().material;
 
                 ShaderManager.setMaterialColorOpaque(material, appearence.color);
                 ShaderManager.setBlendMode(material, Blending.Add);

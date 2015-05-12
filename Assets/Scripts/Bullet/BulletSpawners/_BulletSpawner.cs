@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public abstract class _BulletSpawner : MonoBehaviour {
     
     public GameObject bulletPrefab;
+    public GameObject bulletUpdate;
     public BulletAppearence appearence;
 
     public float bulletLifetime = 10;
@@ -27,18 +28,18 @@ public abstract class _BulletSpawner : MonoBehaviour {
 
     public abstract void spawnBullets();
 
-    public static void spawnBullet(GameObject bulletPrefab,
-                                   _BulletBehavior behavior,
-                                   BulletAppearence appearence,
-                                   float lifeTime,
-                                   float delaySeconds = 0) {
+    public Pair<GameObject, GameObject> createBullet() {
         
         GameObject bullet = GameObject.Instantiate(bulletPrefab);
+        bullet.transform.position = transform.position;
         
         BulletVisual bulletVisual = bullet.GetComponent<BulletVisual>();
         bulletVisual.appearence = appearence;
 
-        BulletUpdate bulletUpdate = bullet.AddComponent<BulletUpdate>();
-        bulletUpdate.init(behavior, lifeTime, delaySeconds);
+        GameObject update = GameObject.Instantiate(bulletUpdate);
+        update.transform.parent = bullet.transform;
+        update.GetComponent<_BulletUpdate>().init(bulletLifetime, delaySeconds);
+
+        return new Pair<GameObject, GameObject>(bullet, update);
     }
 }
