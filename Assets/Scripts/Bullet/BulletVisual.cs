@@ -1,14 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
-
-public enum ColorBlending {
-    Multiply = 0,
-    Add = 1
-}
 
 public enum AppearenceType {
     Flat,
-    Diamond
+    Diamond,
+    Butterfly
 }
 
 [System.Serializable]
@@ -28,27 +24,53 @@ public class BulletVisual : MonoBehaviour {
         switch (appearenceType) {
             case AppearenceType.Diamond:
             {
-                Renderer visualRenderer = visual.transform.Find("DiamondCore").gameObject.GetComponent<Renderer>();
+                Material material = visual.transform.Find("DiamondCore").gameObject.GetComponent<Renderer>().material;
 
-                visualRenderer.material.SetColor("_Color", Color.white);
-                UnlitBlendMode.setBlendMode(visualRenderer.material, appearence.blendMode);
+                ShaderManager.setMaterialColor(material, Color.white);
+                ShaderManager.setBlendMode(material, Blending.Add);
                 
-                visualRenderer = visual.transform.Find("DiamondOutline").gameObject.GetComponent<Renderer>();
+                material = visual.transform.Find("DiamondOutline").gameObject.GetComponent<Renderer>().material;
                 
-                visualRenderer.material.SetColor("_Color", appearence.color);
-                UnlitBlendMode.setBlendMode(visualRenderer.material, appearence.blendMode);
+                ShaderManager.setMaterialColorOpaque(material, appearence.color);
+                ShaderManager.setBlendMode(material, Blending.Add);
+                
+                break;
+            }
+            case AppearenceType.Butterfly:
+            {
+                Material material = visual.transform.Find("ButterflyBodyCore").gameObject.GetComponent<Renderer>().material;
+
+                ShaderManager.setMaterialColor(material, Color.white);
+                ShaderManager.setBlendMode(material, Blending.Add);
+
+                material = visual.transform.Find("ButterflyBodyOutline").gameObject.GetComponent<Renderer>().material;
+
+                ShaderManager.setMaterialColorOpaque(material, appearence.color);
+                ShaderManager.setBlendMode(material, Blending.Add);
+
+                material = transform.Find("Wing 1/Visual").gameObject.GetComponent<Renderer>().material;
+
+                ShaderManager.setMaterialColorOpaque(material, appearence.color);
+                ShaderManager.setBlendMode(material, Blending.Add);
+                
+                material = transform.Find("Wing 2/Visual").gameObject.GetComponent<Renderer>().material;
+
+                ShaderManager.setMaterialColorOpaque(material, appearence.color);
+                ShaderManager.setBlendMode(material, Blending.Add);
 
                 break;
             }
             case AppearenceType.Flat:
+            {
+                Material material = visual.GetComponent<Renderer>().material;
+
+                ShaderManager.setMaterialColorOpaque(material, appearence.color, appearence.colorBlendMode);
+                ShaderManager.setBlendMode(material, appearence.blendMode);
+                break;
+            }
             default:
             {
-                Renderer visualRenderer = visual.GetComponent<Renderer>();
-
-                visualRenderer.material.SetColor("_Color", appearence.color);
-                visualRenderer.material.SetInt("_ColorBlend", (int)appearence.colorBlendMode);
-                UnlitBlendMode.setBlendMode(visualRenderer.material, appearence.blendMode);
-                break;
+                throw new System.NotImplementedException();
             }
         }
     }

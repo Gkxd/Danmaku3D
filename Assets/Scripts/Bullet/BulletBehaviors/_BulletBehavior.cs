@@ -22,8 +22,10 @@ public abstract class _BulletBehavior {
 
     protected void reorientBullet(BulletUpdate b, Vector3 direction) {
         Quaternion rotation = new Quaternion();
-        rotation.SetFromToRotation(Vector3.forward, direction);
-        
+        //rotation.SetFromToRotation(Vector3.forward, direction);
+
+        rotation.SetLookRotation(direction);
+
         b.getRigidBody().rotation = rotation;
     }
 }

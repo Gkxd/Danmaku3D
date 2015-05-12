@@ -49,16 +49,17 @@ SubShader {
 			
 			fixed4 frag (v2f i) : SV_Target
 			{
-				fixed4 col = tex2D(_MainTex, i.texcoord);
+                fixed4 col = tex2D(_MainTex, i.texcoord);
+                
 				switch(_ColorBlend) {
 					case 1:
 						col.rgb += _Color.rgb;
-						col.rgb *= col.a;
 						break;
 					case 0: default:
 						col.rgb *= _Color.rgb;
 						break;
 				}
+                col.a *= _Color.a;
 				return col;
 			}
 		ENDCG
