@@ -11,7 +11,7 @@ SubShader {
 	LOD 100
 	
     Cull Back
-	ZWrite Off
+	ZWrite On
 	Blend [SrcMode] [DstMode]
 	
 	Pass {

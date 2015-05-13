@@ -4,7 +4,8 @@ using System.Collections;
 public enum AppearenceType {
     Flat,
     Diamond,
-    Butterfly
+    Butterfly,
+    TetrahedronShell
 }
 
 [System.Serializable]
@@ -27,12 +28,12 @@ public class BulletVisual : MonoBehaviour {
                 Material material = visual.transform.Find("DiamondCore").gameObject.GetComponent<Renderer>().material;
 
                 ShaderManager.setMaterialColor(material, Color.white);
-                ShaderManager.setBlendMode(material, Blending.Add);
+                ShaderManager.setBlendMode(material, appearence.blendMode);
                 
                 material = visual.transform.Find("DiamondOutline").gameObject.GetComponent<Renderer>().material;
                 
                 ShaderManager.setMaterialColorOpaque(material, appearence.color);
-                ShaderManager.setBlendMode(material, Blending.Add);
+                ShaderManager.setBlendMode(material, appearence.blendMode);
                 
                 break;
             }
@@ -41,22 +42,36 @@ public class BulletVisual : MonoBehaviour {
                 Material material = visual.transform.Find("ButterflyBodyCore").gameObject.GetComponent<Renderer>().material;
 
                 ShaderManager.setMaterialColor(material, Color.white);
-                ShaderManager.setBlendMode(material, Blending.Add);
-
+                ShaderManager.setBlendMode(material, appearence.blendMode);
+                
                 material = visual.transform.Find("ButterflyBodyOutline").gameObject.GetComponent<Renderer>().material;
 
                 ShaderManager.setMaterialColorOpaque(material, appearence.color);
-                ShaderManager.setBlendMode(material, Blending.Add);
+                ShaderManager.setBlendMode(material, appearence.blendMode);
 
                 material = visual.transform.Find("Wing 1/Visual").gameObject.GetComponent<Renderer>().material;
 
                 ShaderManager.setMaterialColorOpaque(material, appearence.color);
-                ShaderManager.setBlendMode(material, Blending.Add);
-                
+                ShaderManager.setBlendMode(material, appearence.blendMode);
+
                 material = visual.transform.Find("Wing 2/Visual").gameObject.GetComponent<Renderer>().material;
 
                 ShaderManager.setMaterialColorOpaque(material, appearence.color);
-                ShaderManager.setBlendMode(material, Blending.Add);
+                ShaderManager.setBlendMode(material, appearence.blendMode);
+
+                break;
+            }
+            case AppearenceType.TetrahedronShell:
+            {
+                Material material = visual.transform.Find("TetrahedronCore").gameObject.GetComponent<Renderer>().material;
+
+                ShaderManager.setMaterialColor(material, Color.white);
+                ShaderManager.setBlendMode(material, appearence.blendMode);
+
+                material = visual.transform.Find("TetrahedronShell").gameObject.GetComponent<Renderer>().material;
+                
+                ShaderManager.setMaterialColorOpaque(material, appearence.color, appearence.colorBlendMode);
+                ShaderManager.setBlendMode(material, appearence.blendMode);
 
                 break;
             }
